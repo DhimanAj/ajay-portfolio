@@ -1,0 +1,204 @@
+---
+import { personal } from '../data/resume';
+
+const navLinks = [
+  { href: '#about', label: 'About' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#education', label: 'Education' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<nav
+  id="navbar"
+  aria-label="Main navigation"
+  style="
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    background: rgba(10,10,10,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid #262626;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  "
+>
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 60px;">
+    <!-- Logo -->
+    <a
+      href="#hero"
+      aria-label="Home"
+      style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none;"
+    >
+      <div style="
+        width: 34px; height: 34px; border-radius: 8px;
+        background: linear-gradient(135deg, #818cf8, #67e8f9);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 0.85rem; color: white; letter-spacing: -0.5px;
+      ">{personal.initials}</div>
+      <span style="font-weight: 600; font-size: 0.9rem; color: #fafafa;">{personal.name.split(' ')[0]}</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul style="display: flex; list-style: none; margin: 0; padding: 0; gap: 0.25rem;" class="desktop-nav">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            style="
+              display: block; padding: 0.35rem 0.75rem; border-radius: 6px;
+              font-size: 0.85rem; font-weight: 500; color: #a1a1aa;
+              text-decoration: none; transition: color 0.2s, background 0.2s;
+            "
+            class="nav-link"
+          >{link.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Right actions -->
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        aria-label="Toggle theme"
+        style="
+          width: 34px; height: 34px; border-radius: 8px; border: 1px solid #262626;
+          background: transparent; cursor: pointer; display: flex;
+          align-items: center; justify-content: center; color: #a1a1aa;
+          transition: background 0.2s, color 0.2s; font-size: 0.9rem;
+        "
+      >
+        <span class="icon-dark">🌙</span>
+        <span class="icon-light" style="display:none;">☀️</span>
+      </button>
+
+      <!-- Resume download -->
+      <a
+        href="/Ajay_Resume.pdf"
+        download
+        style="
+          display: flex; align-items: center; gap: 0.4rem;
+          padding: 0.4rem 0.9rem; border-radius: 8px; font-size: 0.8rem;
+          font-weight: 600; color: white; text-decoration: none;
+          background: linear-gradient(135deg, #818cf8, #6366f1);
+          transition: opacity 0.2s, transform 0.2s;
+        "
+        class="resume-btn"
+      >
+        ↓ Resume
+      </a>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        style="
+          display: none; width: 34px; height: 34px; border-radius: 8px;
+          border: 1px solid #262626; background: transparent; cursor: pointer;
+          align-items: center; justify-content: center; color: #fafafa; font-size: 1.1rem;
+        "
+        class="mobile-only"
+      >☰</button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" style="display: none; border-top: 1px solid #262626;">
+    <ul style="list-style: none; margin: 0; padding: 0.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.25rem;">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="mobile-nav-link"
+            style="
+              display: block; padding: 0.6rem 0.75rem; border-radius: 6px;
+              font-size: 0.9rem; font-weight: 500; color: #a1a1aa;
+              text-decoration: none; transition: color 0.2s, background 0.2s;
+            "
+          >{link.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  @media (max-width: 768px) {
+    .desktop-nav { display: none !important; }
+    .mobile-only { display: flex !important; }
+  }
+  .nav-link:hover { color: #818cf8 !important; background: #818cf810 !important; }
+  .mobile-nav-link:hover { color: #818cf8 !important; background: #818cf810 !important; }
+  .resume-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  html.light nav {
+    background: rgba(255,255,255,0.9) !important;
+    border-bottom-color: #e0e0e0 !important;
+  }
+  html.light .nav-link, html.light .mobile-nav-link { color: #6b7280 !important; }
+  html.light nav span[style*="color: #fafafa"] { color: #111111 !important; }
+</style>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const themeBtn = document.getElementById('theme-toggle');
+  const iconDark = document.querySelector('.icon-dark') as HTMLElement | null;
+  const iconLight = document.querySelector('.icon-light') as HTMLElement | null;
+
+  // Mobile menu
+  btn?.addEventListener('click', () => {
+    const open = menu?.style.display === 'block';
+    if (menu) menu.style.display = open ? 'none' : 'block';
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (menu) menu.style.display = 'none';
+    });
+  });
+
+  // Theme toggle
+  function updateIcons() {
+    const isLight = document.documentElement.classList.contains('light');
+    if (iconDark) iconDark.style.display = isLight ? 'none' : 'block';
+    if (iconLight) iconLight.style.display = isLight ? 'block' : 'none';
+  }
+  updateIcons();
+
+  themeBtn?.addEventListener('click', () => {
+    const isLight = document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', !isLight);
+    document.documentElement.classList.toggle('dark', isLight);
+    localStorage.setItem('theme', isLight ? 'dark' : 'light');
+    updateIcons();
+  });
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            const href = link.getAttribute('href');
+            if (href === '#' + entry.target.id) {
+              (link as HTMLElement).style.color = '#818cf8';
+              (link as HTMLElement).style.background = '#818cf810';
+            } else {
+              (link as HTMLElement).style.color = '#a1a1aa';
+              (link as HTMLElement).style.background = 'transparent';
+            }
+          });
+        }
+      });
+    },
+    { rootMargin: '-50% 0px -50% 0px' }
+  );
+
+  sections.forEach((s) => io.observe(s));
+</script>

@@ -1,0 +1,210 @@
+---
+import '../styles/global.css';
+import { seo, personal, experience, education } from '../data/resume';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = seo.title,
+  description = seo.description,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://ajaydhiman.dev/#person",
+      "name": personal.name,
+      "jobTitle": personal.title,
+      "email": personal.email,
+      "telephone": personal.phone,
+      "url": "https://ajaydhiman.dev",
+      "sameAs": [personal.linkedin, personal.github],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mohali",
+        "addressRegion": "Punjab",
+        "addressCountry": "IN"
+      },
+      "alumniOf": education.map((e) => ({
+        "@type": "EducationalOrganization",
+        "name": e.institution,
+      })),
+      "worksFor": {
+        "@type": "Organization",
+        "name": experience[0].company,
+      },
+      "hasOccupation": experience.map((job) => ({
+        "@type": "Role",
+        "roleName": job.role,
+        "startDate": job.start,
+        "endDate": job.current ? undefined : job.end,
+        "occupationLocation": {
+          "@type": "City",
+          "name": job.location,
+        },
+      })),
+      "knowsAbout": [
+        "Flutter", "Android Development", "Dart", "Kotlin", "Java",
+        "Firebase", "GraphQL", "Socket.IO", "Bloc", "GetX",
+        "MVVM", "Clean Architecture", "RESTful APIs",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ajaydhiman.dev/#website",
+      "url": "https://ajaydhiman.dev",
+      "name": personal.name,
+      "description": seo.description,
+      "author": { "@id": "https://ajaydhiman.dev/#person" },
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ajaydhiman.dev/#webpage",
+      "url": "https://ajaydhiman.dev",
+      "name": title,
+      "description": description,
+      "isPartOf": { "@id": "https://ajaydhiman.dev/#website" },
+      "about": { "@id": "https://ajaydhiman.dev/#person" },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ajaydhiman.dev" }],
+      },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={seo.keywords.join(', ')} />
+    <meta name="author" content={personal.name} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:site_name" content={personal.name} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Theme init — runs before paint to prevent flash -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.classList.toggle('light', theme === 'light');
+        document.documentElement.classList.toggle('dark', theme !== 'light');
+      })();
+    </script>
+  </head>
+
+  <body style="background-color: var(--color-bg, #0a0a0a); color: var(--color-text, #fafafa);">
+
+    <!-- Skip to main content — required for WCAG 2.2 AA + ATS crawlers -->
+    <a
+      href="#main-content"
+      style="
+        position: absolute; top: -100px; left: 1rem; z-index: 9999;
+        background: #818cf8; color: white; padding: 0.5rem 1rem;
+        border-radius: 0 0 8px 8px; font-size: 0.85rem; font-weight: 600;
+        text-decoration: none; transition: top 0.2s;
+      "
+      id="skip-link"
+    >Skip to main content</a>
+
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress" style="width: 0%;" role="progressbar" aria-hidden="true"></div>
+
+    <slot />
+
+    <!-- Back to top -->
+    <button
+      id="back-to-top"
+      aria-label="Back to top"
+      style="
+        position: fixed; bottom: 1.5rem; right: 1.5rem;
+        width: 40px; height: 40px; border-radius: 50%;
+        background: #818cf8; color: white; border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0; transform: translateY(8px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 100; font-size: 1rem;
+      "
+    >
+      ↑
+    </button>
+
+    <script>
+      // Skip link visibility on focus
+      const skipLink = document.getElementById('skip-link');
+      skipLink?.addEventListener('focus', () => { if (skipLink) skipLink.style.top = '0'; });
+      skipLink?.addEventListener('blur', () => { if (skipLink) skipLink.style.top = '-100px'; });
+
+      // Scroll progress
+      const bar = document.getElementById('scroll-progress');
+      const btn = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        if (bar) bar.style.width = scrolled + '%';
+        if (btn) {
+          if (window.scrollY > 400) {
+            btn.style.opacity = '1';
+            btn.style.transform = 'translateY(0)';
+          } else {
+            btn.style.opacity = '0';
+            btn.style.transform = 'translateY(8px)';
+          }
+        }
+      });
+
+      btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // Scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

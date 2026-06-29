@@ -1,0 +1,52 @@
+---
+import { education } from '../data/resume';
+---
+
+<section id="education" aria-labelledby="education-heading" style="padding: 5rem 1.5rem;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <div class="reveal">
+      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Education</p>
+      <h2 id="education-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 2.5rem;">
+        Academic <span class="gradient-text">Background</span>
+      </h2>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      {education.map((edu, i) => (
+        <div
+          class="reveal card-hover"
+          style={`
+            display: flex; align-items: center; gap: 1.25rem;
+            padding: 1.25rem 1.5rem; border-radius: 12px;
+            background: #111111; border: 1px solid #1e1e1e;
+            transition-delay: ${i * 0.1}s;
+          `}
+        >
+          <!-- Icon -->
+          <div style="
+            width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+            background: linear-gradient(135deg, #818cf820, #67e8f920);
+            border: 1px solid #818cf830;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem;
+          " aria-hidden="true">
+            🎓
+          </div>
+          <div style="flex: 1;">
+            <h3 style="font-size: 0.95rem; font-weight: 600; color: #fafafa; margin: 0 0 0.2rem;">{edu.degree}</h3>
+            <p style="font-size: 0.85rem; color: #818cf8; margin: 0 0 0.15rem;">{edu.institution}</p>
+            <p style="font-size: 0.78rem; color: #52525b; margin: 0;">{edu.location}</p>
+          </div>
+          {edu.year && (
+            <div style="font-size: 0.78rem; color: #71717a; flex-shrink: 0;">{edu.year}</div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  html.light #education h2, html.light #education h3 { color: #111111 !important; }
+  html.light div[style*="background: #111111"] { background: #ffffff !important; border-color: #e0e0e0 !important; }
+</style>

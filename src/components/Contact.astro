@@ -1,0 +1,165 @@
+---
+import { personal } from '../data/resume';
+---
+
+<section id="contact" aria-labelledby="contact-heading" style="padding: 5rem 1.5rem;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div class="reveal" style="text-align: center; margin-bottom: 2.5rem;">
+      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Contact</p>
+      <h2 id="contact-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.75rem;">
+        Let's <span class="gradient-text">Work Together</span>
+      </h2>
+      <p style="color: #71717a; font-size: 0.95rem; max-width: 480px; margin: 0 auto; line-height: 1.7;">
+        I'm currently open to new opportunities. Whether you have a project in mind, want to discuss a role, or just want to say hi — my inbox is always open.
+      </p>
+    </div>
+
+    <!-- <address> is the correct semantic element for contact information -->
+    <address
+      itemscope
+      itemtype="https://schema.org/Person"
+      style="font-style: normal;"
+      aria-label="Contact information for Ajay Dhiman"
+    >
+      <meta itemprop="name" content={personal.name} />
+      <meta itemprop="jobTitle" content={personal.title} />
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;" class="contact-grid">
+        <!-- Email -->
+        <a
+          href={`mailto:${personal.email}`}
+          class="reveal card-hover"
+          itemprop="email"
+          style="
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1.25rem 1.5rem; border-radius: 12px;
+            background: #111111; border: 1px solid #1e1e1e;
+            text-decoration: none; transition-delay: 0.05s;
+            color: inherit;
+          "
+          aria-label={`Send email to ${personal.email}`}
+        >
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #818cf815; border: 1px solid #818cf830; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" aria-hidden="true">
+            <svg width="18" height="18" fill="none" stroke="#818cf8" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div style="min-width: 0;">
+            <p style="font-size: 0.72rem; color: #71717a; margin: 0 0 0.2rem; text-transform: uppercase; letter-spacing: 0.06em;">Email</p>
+            <p style="font-size: 0.85rem; font-weight: 500; color: #fafafa; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{personal.email}</p>
+          </div>
+        </a>
+
+        <!-- Phone -->
+        <a
+          href={`tel:${personal.phone}`}
+          class="reveal card-hover"
+          itemprop="telephone"
+          style="
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1.25rem 1.5rem; border-radius: 12px;
+            background: #111111; border: 1px solid #1e1e1e;
+            text-decoration: none; transition-delay: 0.1s;
+            color: inherit;
+          "
+          aria-label={`Call ${personal.phone}`}
+        >
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #818cf815; border: 1px solid #818cf830; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" aria-hidden="true">
+            <svg width="18" height="18" fill="none" stroke="#818cf8" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <div>
+            <p style="font-size: 0.72rem; color: #71717a; margin: 0 0 0.2rem; text-transform: uppercase; letter-spacing: 0.06em;">Phone</p>
+            <p style="font-size: 0.85rem; font-weight: 500; color: #fafafa; margin: 0;">{personal.phone}</p>
+          </div>
+        </a>
+
+        <!-- LinkedIn -->
+        <a
+          href={personal.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="reveal card-hover"
+          itemprop="sameAs"
+          style="
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1.25rem 1.5rem; border-radius: 12px;
+            background: #111111; border: 1px solid #1e1e1e;
+            text-decoration: none; transition-delay: 0.15s;
+            color: inherit;
+          "
+          aria-label="View LinkedIn profile (opens in new tab)"
+        >
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #818cf815; border: 1px solid #818cf830; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" aria-hidden="true">
+            <svg width="18" height="18" fill="#818cf8" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </div>
+          <div>
+            <p style="font-size: 0.72rem; color: #71717a; margin: 0 0 0.2rem; text-transform: uppercase; letter-spacing: 0.06em;">LinkedIn</p>
+            <p style="font-size: 0.85rem; font-weight: 500; color: #fafafa; margin: 0;">ajay-dhiman-90075919a</p>
+          </div>
+        </a>
+
+        <!-- Location -->
+        <div
+          class="reveal"
+          style="
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1.25rem 1.5rem; border-radius: 12px;
+            background: #111111; border: 1px solid #1e1e1e;
+            transition-delay: 0.2s;
+          "
+        >
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #818cf815; border: 1px solid #818cf830; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" aria-hidden="true">
+            <svg width="18" height="18" fill="none" stroke="#818cf8" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <p style="font-size: 0.72rem; color: #71717a; margin: 0 0 0.2rem; text-transform: uppercase; letter-spacing: 0.06em;">Location</p>
+            <p
+              itemprop="address"
+              itemscope
+              itemtype="https://schema.org/PostalAddress"
+              style="font-size: 0.85rem; font-weight: 500; color: #fafafa; margin: 0;"
+            >
+              <span itemprop="addressLocality">Mohali</span>,&nbsp;
+              <span itemprop="addressCountry">India</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </address>
+
+    <!-- Primary CTA -->
+    <div class="reveal" style="text-align: center;">
+      <a
+        href={`mailto:${personal.email}`}
+        style="
+          display: inline-flex; align-items: center; gap: 0.5rem;
+          padding: 0.75rem 2rem; border-radius: 12px; font-size: 0.95rem; font-weight: 600;
+          color: white; text-decoration: none;
+          background: linear-gradient(135deg, #818cf8, #6366f1);
+          transition: opacity 0.2s, transform 0.2s;
+          box-shadow: 0 4px 20px #818cf830;
+        "
+        onmouseover="this.style.opacity='0.85';this.style.transform='translateY(-2px)'"
+        onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'"
+      >
+        Say Hello 👋
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (max-width: 600px) {
+    .contact-grid { grid-template-columns: 1fr !important; }
+  }
+  html.light #contact h2 { color: #111111 !important; }
+  html.light div[style*="background: #111111"],
+  html.light a[style*="background: #111111"] { background: #ffffff !important; border-color: #e0e0e0 !important; }
+  html.light p[style*="color: #fafafa"] { color: #111111 !important; }
+</style>

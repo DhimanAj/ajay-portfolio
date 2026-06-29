@@ -1,0 +1,74 @@
+---
+import { skills } from '../data/resume';
+---
+
+<section id="skills" aria-labelledby="skills-heading" style="padding: 5rem 1.5rem; background: #0d0d0d;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+    <div class="reveal">
+      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Skills</p>
+      <h2 id="skills-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 2.5rem;">
+        Technical <span class="gradient-text">Expertise</span>
+      </h2>
+    </div>
+
+    <!-- itemscope wraps all skills so structured-data parsers associate them with the person -->
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;"
+      itemscope
+      itemtype="https://schema.org/ItemList"
+      aria-label="Technical skills grouped by category"
+    >
+      {skills.map((group, i) => (
+        <div
+          class="reveal card-hover"
+          role="group"
+          aria-labelledby={`skill-cat-${i}`}
+          style={`
+            padding: 1.25rem; border-radius: 12px;
+            background: #111111; border: 1px solid #1e1e1e;
+            transition-delay: ${i * 0.05}s;
+          `}
+        >
+          <h3
+            id={`skill-cat-${i}`}
+            style="font-size: 0.8rem; font-weight: 600; color: #818cf8; margin: 0 0 0.85rem; text-transform: uppercase; letter-spacing: 0.08em;"
+          >
+            {group.category}
+          </h3>
+          <ul style="display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0; padding: 0;">
+            {group.items.map((skill) => (
+              <li itemprop="itemListElement">
+                <span
+                  itemprop="name"
+                  style="
+                    display: inline-block; padding: 0.25rem 0.65rem; border-radius: 6px;
+                    font-size: 0.78rem; font-weight: 500;
+                    background: #1a1a1a; border: 1px solid #2a2a2a;
+                    color: #d4d4d4;
+                    transition: background 0.2s, border-color 0.2s, color 0.2s;
+                  "
+                  class="skill-pill"
+                >{skill}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  html.light #skills { background: #f9f9f9 !important; }
+  html.light #skills h2 { color: #111111 !important; }
+  html.light .skill-pill {
+    background: #efefef !important;
+    border-color: #e0e0e0 !important;
+    color: #374151 !important;
+  }
+  html.light div[style*="background: #111111"] {
+    background: #ffffff !important;
+    border-color: #e0e0e0 !important;
+  }
+  .skill-pill:hover { background: #818cf815 !important; border-color: #818cf840 !important; color: #818cf8 !important; }
+</style>

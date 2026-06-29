@@ -1,0 +1,114 @@
+---
+import { experience } from '../data/resume';
+
+// Map month names to ISO 8601 for <time datetime="">
+function toISO(label: string): string {
+  if (label === 'Present') return '';
+  const map: Record<string, string> = {
+    January:'01', February:'02', March:'03', April:'04', May:'05', June:'06',
+    July:'07', August:'08', September:'09', October:'10', November:'11', December:'12',
+  };
+  const [month, year] = label.split(' ');
+  return `${year}-${map[month] ?? '01'}`;
+}
+---
+
+<section id="experience" aria-labelledby="experience-heading" style="padding: 5rem 1.5rem;">
+  <div style="max-width: 900px; margin: 0 auto;">
+    <div class="reveal">
+      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Experience</p>
+      <h2 id="experience-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 2.5rem;">
+        Professional <span class="gradient-text">Journey</span>
+      </h2>
+    </div>
+
+    <!-- Timeline -->
+    <div style="position: relative;" role="list" aria-label="Work experience timeline">
+      <!-- Vertical line -->
+      <div style="
+        position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;
+        background: linear-gradient(to bottom, #818cf8, #262626);
+      " aria-hidden="true"></div>
+
+      {experience.map((job, i) => (
+        <article
+          role="listitem"
+          class="reveal"
+          aria-label={`${job.role} at ${job.company}`}
+          itemscope
+          itemtype="https://schema.org/Role"
+          style={`
+            position: relative; padding-left: 3.5rem; margin-bottom: 2.5rem;
+            transition-delay: ${i * 0.1}s;
+          `}
+        >
+          <!-- Timeline dot -->
+          <div style={`
+            position: absolute; left: 12px; top: 4px; width: 17px; height: 17px;
+            border-radius: 50%; border: 2px solid ${job.current ? '#818cf8' : '#262626'};
+            background: ${job.current ? '#818cf8' : '#0a0a0a'};
+            box-shadow: ${job.current ? '0 0 12px #818cf840' : 'none'};
+          `} aria-hidden="true"></div>
+
+          <!-- Card -->
+          <div style="
+            padding: 1.5rem; border-radius: 14px;
+            background: #111111; border: 1px solid #1e1e1e;
+            transition: border-color 0.2s, box-shadow 0.2s;
+          " class="card-hover">
+
+            <!-- Header -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <div>
+                <h3 itemprop="roleName" style="font-size: 1rem; font-weight: 600; color: #fafafa; margin: 0 0 0.25rem;">{job.role}</h3>
+                <p style="font-size: 0.9rem; font-weight: 500; color: #818cf8; margin: 0;" itemprop="name">{job.company}</p>
+              </div>
+              <div style="text-align: right;">
+                <div style="
+                  display: inline-block; padding: 0.2rem 0.65rem; border-radius: 9999px;
+                  font-size: 0.72rem; font-weight: 500;
+                  background: #818cf812; border: 1px solid #818cf830;
+                  color: #818cf8; margin-bottom: 0.25rem;
+                ">
+                  {job.current ? '🟢 Current' : job.type}
+                </div>
+                <!-- Semantic date range with <time> for ATS/crawlers -->
+                <p style="font-size: 0.78rem; color: #71717a; margin: 0;">
+                  <time datetime={toISO(job.start)} itemprop="startDate">{job.start}</time>
+                  {' — '}
+                  {job.current
+                    ? <time>Present</time>
+                    : <time datetime={toISO(job.end)} itemprop="endDate">{job.end}</time>
+                  }
+                </p>
+                <p style="font-size: 0.75rem; color: #52525b; margin: 0.1rem 0 0;">{job.location}</p>
+              </div>
+            </div>
+
+            <!-- Highlights -->
+            <ul style="list-style: none; margin: 0 0 1rem; padding: 0;" aria-label={`Responsibilities at ${job.company}`}>
+              {job.highlights.map((h) => (
+                <li style="display: flex; gap: 0.6rem; margin-bottom: 0.5rem; align-items: flex-start;">
+                  <span style="color: #818cf8; flex-shrink: 0; margin-top: 0.3rem; font-size: 0.7rem;" aria-hidden="true">▹</span>
+                  <span style="font-size: 0.85rem; color: #a1a1aa; line-height: 1.6;">{h}</span>
+                </li>
+              ))}
+            </ul>
+
+            <!-- Tech stack -->
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;" aria-label={`Technologies used at ${job.company}`}>
+              {job.tech.map((t) => (
+                <span class="tech-badge">{t}</span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  html.light #experience h2, html.light #experience h3 { color: #111111 !important; }
+  html.light div[style*="background: #111111"] { background: #ffffff !important; border-color: #e0e0e0 !important; }
+</style>

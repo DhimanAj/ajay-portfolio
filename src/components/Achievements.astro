@@ -1,0 +1,39 @@
+---
+import { achievements } from '../data/resume';
+---
+
+<section id="achievements" aria-labelledby="achievements-heading" style="padding: 5rem 1.5rem; background: #0d0d0d;">
+  <div style="max-width: 1000px; margin: 0 auto;">
+    <div class="reveal">
+      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Achievements</p>
+      <h2 id="achievements-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 2.5rem;">
+        Key <span class="gradient-text">Highlights</span>
+      </h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
+      {achievements.map((item, i) => (
+        <div
+          class="reveal card-hover"
+          style={`
+            padding: 1.5rem; border-radius: 14px;
+            background: #111111; border: 1px solid #1e1e1e;
+            transition-delay: ${i * 0.07}s;
+          `}
+        >
+          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+            <span style="font-size: 1.5rem;" aria-hidden="true">{item.icon}</span>
+            <h3 style="font-size: 0.95rem; font-weight: 600; color: #fafafa; margin: 0;">{item.title}</h3>
+          </div>
+          <p style="font-size: 0.85rem; color: #71717a; line-height: 1.65; margin: 0;">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  html.light #achievements { background: #f9f9f9 !important; }
+  html.light #achievements h2, html.light #achievements h3 { color: #111111 !important; }
+  html.light div[style*="background: #111111"] { background: #ffffff !important; border-color: #e0e0e0 !important; }
+</style>
