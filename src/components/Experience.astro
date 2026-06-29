@@ -1,7 +1,6 @@
 ---
 import { experience } from '../data/resume';
 
-// Map month names to ISO 8601 for <time datetime="">
 function toISO(label: string): string {
   if (label === 'Present') return '';
   const map: Record<string, string> = {
@@ -13,21 +12,23 @@ function toISO(label: string): string {
 }
 ---
 
-<section id="experience" aria-labelledby="experience-heading" style="padding: 5rem 1.5rem;">
-  <div style="max-width: 900px; margin: 0 auto;">
+<section id="experience" aria-labelledby="experience-heading" style="padding: 6rem 1.5rem;">
+  <div style="max-width: 860px; margin: 0 auto;">
+
     <div class="reveal">
-      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Experience</p>
-      <h2 id="experience-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 2.5rem;">
+      <p class="section-eyebrow"><span>03</span> Experience</p>
+      <h2 id="experience-heading" style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 3rem; line-height: 1.1;">
         Professional <span class="gradient-text">Journey</span>
       </h2>
     </div>
 
     <!-- Timeline -->
     <div style="position: relative;" role="list" aria-label="Work experience timeline">
-      <!-- Vertical line -->
+
+      <!-- Connector line -->
       <div style="
-        position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;
-        background: linear-gradient(to bottom, #818cf8, #262626);
+        position: absolute; left: 19px; top: 8px; bottom: 8px; width: 1px;
+        background: linear-gradient(to bottom, #818cf8 0%, rgba(129,140,248,0.15) 60%, transparent 100%);
       " aria-hidden="true"></div>
 
       {experience.map((job, i) => (
@@ -37,43 +38,48 @@ function toISO(label: string): string {
           aria-label={`${job.role} at ${job.company}`}
           itemscope
           itemtype="https://schema.org/Role"
-          style={`
-            position: relative; padding-left: 3.5rem; margin-bottom: 2.5rem;
-            transition-delay: ${i * 0.1}s;
-          `}
+          style={`position: relative; padding-left: 3.75rem; margin-bottom: ${i < experience.length - 1 ? '2.25rem' : '0'}; transition-delay: ${i * 0.1}s;`}
         >
           <!-- Timeline dot -->
           <div style={`
-            position: absolute; left: 12px; top: 4px; width: 17px; height: 17px;
-            border-radius: 50%; border: 2px solid ${job.current ? '#818cf8' : '#262626'};
-            background: ${job.current ? '#818cf8' : '#0a0a0a'};
-            box-shadow: ${job.current ? '0 0 12px #818cf840' : 'none'};
-          `} aria-hidden="true"></div>
+            position: absolute; left: 9px; top: 22px;
+            width: 20px; height: 20px; border-radius: 50%;
+            border: 2px solid ${job.current ? '#818cf8' : 'rgba(129,140,248,0.25)'};
+            background: ${job.current ? '#818cf8' : '#080808'};
+            ${job.current ? 'box-shadow: 0 0 0 4px rgba(129,140,248,0.12), 0 0 16px rgba(129,140,248,0.4);' : ''}
+            transition: border-color 0.3s;
+          `} aria-hidden="true">
+            {job.current && (
+              <div style="
+                position: absolute; inset: 3px; border-radius: 50%;
+                background: white; opacity: 0.9;
+              "></div>
+            )}
+          </div>
 
           <!-- Card -->
-          <div style="
-            padding: 1.5rem; border-radius: 14px;
-            background: #111111; border: 1px solid #1e1e1e;
-            transition: border-color 0.2s, box-shadow 0.2s;
-          " class="card-hover">
+          <div class={`glass ${job.current ? 'card-current' : 'glass-hover'}`} style={`
+            padding: 1.6rem; border-radius: 16px;
+            ${job.current ? 'border-left: 2px solid rgba(129,140,248,0.5) !important; box-shadow: 0 0 0 1px rgba(129,140,248,0.1), 0 8px 32px rgba(0,0,0,0.3);' : ''}
+          `}>
 
             <!-- Header -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem;">
               <div>
-                <h3 itemprop="roleName" style="font-size: 1rem; font-weight: 600; color: #fafafa; margin: 0 0 0.25rem;">{job.role}</h3>
-                <p style="font-size: 0.9rem; font-weight: 500; color: #818cf8; margin: 0;" itemprop="name">{job.company}</p>
+                <h3 itemprop="roleName" style="font-size: 1.05rem; font-weight: 700; color: #fafafa; margin: 0 0 0.3rem; letter-spacing: -0.01em;">{job.role}</h3>
+                <p itemprop="name" style="font-size: 0.9rem; font-weight: 600; color: #818cf8; margin: 0;">{job.company}</p>
               </div>
-              <div style="text-align: right;">
-                <div style="
-                  display: inline-block; padding: 0.2rem 0.65rem; border-radius: 9999px;
-                  font-size: 0.72rem; font-weight: 500;
-                  background: #818cf812; border: 1px solid #818cf830;
-                  color: #818cf8; margin-bottom: 0.25rem;
-                ">
-                  {job.current ? '🟢 Current' : job.type}
+              <div style="text-align: right; flex-shrink: 0;">
+                <div style={`
+                  display: inline-block; padding: 0.22rem 0.7rem; border-radius: 9999px;
+                  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em; margin-bottom: 0.3rem;
+                  ${job.current
+                    ? 'background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); color: #4ade80;'
+                    : 'background: rgba(129,140,248,0.08); border: 1px solid rgba(129,140,248,0.18); color: #818cf8;'}
+                `}>
+                  {job.current ? '● Current' : job.type}
                 </div>
-                <!-- Semantic date range with <time> for ATS/crawlers -->
-                <p style="font-size: 0.78rem; color: #71717a; margin: 0;">
+                <p style="font-size: 0.76rem; color: #52525b; margin: 0; line-height: 1.5;">
                   <time datetime={toISO(job.start)} itemprop="startDate">{job.start}</time>
                   {' — '}
                   {job.current
@@ -81,22 +87,22 @@ function toISO(label: string): string {
                     : <time datetime={toISO(job.end)} itemprop="endDate">{job.end}</time>
                   }
                 </p>
-                <p style="font-size: 0.75rem; color: #52525b; margin: 0.1rem 0 0;">{job.location}</p>
+                <p style="font-size: 0.72rem; color: #3f3f46; margin: 0.1rem 0 0;">{job.location}</p>
               </div>
             </div>
 
             <!-- Highlights -->
-            <ul style="list-style: none; margin: 0 0 1rem; padding: 0;" aria-label={`Responsibilities at ${job.company}`}>
+            <ul style="list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-direction: column; gap: 0.55rem;" aria-label={`Responsibilities at ${job.company}`}>
               {job.highlights.map((h) => (
-                <li style="display: flex; gap: 0.6rem; margin-bottom: 0.5rem; align-items: flex-start;">
-                  <span style="color: #818cf8; flex-shrink: 0; margin-top: 0.3rem; font-size: 0.7rem;" aria-hidden="true">▹</span>
-                  <span style="font-size: 0.85rem; color: #a1a1aa; line-height: 1.6;">{h}</span>
+                <li style="display: flex; gap: 0.65rem; align-items: flex-start;">
+                  <span style="color: #818cf8; flex-shrink: 0; margin-top: 0.28rem; font-size: 0.68rem;" aria-hidden="true">▹</span>
+                  <span style="font-size: 0.85rem; color: #a1a1aa; line-height: 1.65;">{h}</span>
                 </li>
               ))}
             </ul>
 
-            <!-- Tech stack -->
-            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;" aria-label={`Technologies used at ${job.company}`}>
+            <!-- Tech -->
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;" aria-label={`Technologies at ${job.company}`}>
               {job.tech.map((t) => (
                 <span class="tech-badge">{t}</span>
               ))}
@@ -109,6 +115,16 @@ function toISO(label: string): string {
 </section>
 
 <style>
-  html.light #experience h2, html.light #experience h3 { color: #111111 !important; }
-  html.light div[style*="background: #111111"] { background: #ffffff !important; border-color: #e0e0e0 !important; }
+  .card-current {
+    transition: box-shadow 0.25s ease;
+  }
+  .card-current:hover {
+    box-shadow: 0 0 0 1px rgba(129,140,248,0.2), 0 12px 48px rgba(0,0,0,0.4) !important;
+  }
+
+  html.light #experience h2 { color: #111111; }
+  html.light #experience h3 { color: #111111 !important; }
+  html.light #experience span[style*="color: #a1a1aa"] { color: #374151 !important; }
+  html.light #experience p[style*="color: #52525b"] { color: #6b7280 !important; }
+  html.light #experience p[style*="color: #3f3f46"] { color: #6b7280 !important; }
 </style>

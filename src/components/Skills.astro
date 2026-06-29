@@ -1,54 +1,66 @@
 ---
 import { skills } from '../data/resume';
+
+const categoryIcons: Record<string, string> = {
+  'Mobile Development': '📱',
+  'Architecture & Patterns': '🏗️',
+  'State Management': '⚙️',
+  'Backend & APIs': '🔌',
+  'Cloud & Services': '☁️',
+  'UI/UX': '🎨',
+  'Testing & Quality': '✅',
+  'Tools & DevOps': '🛠️',
+  'Methodologies': '🔄',
+};
 ---
 
-<section id="skills" aria-labelledby="skills-heading" style="padding: 5rem 1.5rem; background: #0d0d0d;">
-  <div style="max-width: 1000px; margin: 0 auto;">
+<section id="skills" aria-labelledby="skills-heading" style="padding: 6rem 1.5rem; background: rgba(255,255,255,0.012);">
+  <div style="max-width: 1040px; margin: 0 auto;">
+
     <div class="reveal">
-      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Skills</p>
-      <h2 id="skills-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 2.5rem;">
+      <p class="section-eyebrow"><span>02</span> Skills</p>
+      <h2 id="skills-heading" style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 0.6rem; line-height: 1.1;">
         Technical <span class="gradient-text">Expertise</span>
       </h2>
+      <p style="color: #52525b; font-size: 0.9rem; margin: 0 0 2.75rem;">A broad skill set built across 5+ years of production mobile development.</p>
     </div>
 
-    <!-- itemscope wraps all skills so structured-data parsers associate them with the person -->
     <div
-      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;"
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1rem;"
       itemscope
       itemtype="https://schema.org/ItemList"
       aria-label="Technical skills grouped by category"
     >
       {skills.map((group, i) => (
         <div
-          class="reveal card-hover"
+          class="reveal glass glass-hover"
           role="group"
           aria-labelledby={`skill-cat-${i}`}
-          style={`
-            padding: 1.25rem; border-radius: 12px;
-            background: #111111; border: 1px solid #1e1e1e;
-            transition-delay: ${i * 0.05}s;
-          `}
+          style={`padding: 1.35rem; border-radius: 16px; transition-delay: ${i * 0.05}s;`}
         >
-          <h3
-            id={`skill-cat-${i}`}
-            style="font-size: 0.8rem; font-weight: 600; color: #818cf8; margin: 0 0 0.85rem; text-transform: uppercase; letter-spacing: 0.08em;"
-          >
-            {group.category}
-          </h3>
+          <!-- Category header -->
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
+            <span style="font-size: 1.1rem; line-height: 1;" aria-hidden="true">
+              {categoryIcons[group.category] ?? '⚡'}
+            </span>
+            <h3
+              id={`skill-cat-${i}`}
+              style="font-size: 0.76rem; font-weight: 700; color: #818cf8; margin: 0; text-transform: uppercase; letter-spacing: 0.09em;"
+            >
+              {group.category}
+            </h3>
+          </div>
+
+          <!-- Skills -->
           <ul style="display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0; padding: 0;">
             {group.items.map((skill) => (
               <li itemprop="itemListElement">
                 <span
                   itemprop="name"
-                  style="
-                    display: inline-block; padding: 0.25rem 0.65rem; border-radius: 6px;
-                    font-size: 0.78rem; font-weight: 500;
-                    background: #1a1a1a; border: 1px solid #2a2a2a;
-                    color: #d4d4d4;
-                    transition: background 0.2s, border-color 0.2s, color 0.2s;
-                  "
                   class="skill-pill"
-                >{skill}</span>
+                >
+                  {skill}
+                </span>
               </li>
             ))}
           </ul>
@@ -59,16 +71,29 @@ import { skills } from '../data/resume';
 </section>
 
 <style>
-  html.light #skills { background: #f9f9f9 !important; }
-  html.light #skills h2 { color: #111111 !important; }
+  .skill-pill {
+    display: inline-block;
+    padding: 0.28rem 0.7rem;
+    border-radius: 7px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #c4c4c8;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    cursor: default;
+  }
+  .skill-pill:hover {
+    background: rgba(129,140,248,0.1) !important;
+    border-color: rgba(129,140,248,0.3) !important;
+    color: #818cf8 !important;
+  }
+
   html.light .skill-pill {
-    background: #efefef !important;
-    border-color: #e0e0e0 !important;
-    color: #374151 !important;
+    background: rgba(0,0,0,0.04);
+    border-color: rgba(0,0,0,0.1);
+    color: #374151;
   }
-  html.light div[style*="background: #111111"] {
-    background: #ffffff !important;
-    border-color: #e0e0e0 !important;
-  }
-  .skill-pill:hover { background: #818cf815 !important; border-color: #818cf840 !important; color: #818cf8 !important; }
+  html.light #skills { background: rgba(0,0,0,0.02); }
+  html.light #skills h2 { color: #111111; }
 </style>

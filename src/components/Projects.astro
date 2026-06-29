@@ -3,89 +3,111 @@ import { projects } from '../data/resume';
 
 const featured = projects.filter((p) => p.featured);
 const others = projects.filter((p) => !p.featured);
+
+const domainColors: Record<string, { text: string; bg: string; border: string; gradient: string }> = {
+  'AI Fintech':        { text: '#818cf8', bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.2)', gradient: '#818cf8, #6366f1' },
+  'Telecom & ISP':     { text: '#38bdf8', bg: 'rgba(56,189,248,0.08)',  border: 'rgba(56,189,248,0.2)',  gradient: '#38bdf8, #0284c7' },
+  'Healthcare':        { text: '#34d399', bg: 'rgba(52,211,153,0.08)',  border: 'rgba(52,211,153,0.2)',  gradient: '#34d399, #059669' },
+  'On-Demand Services':{ text: '#fb923c', bg: 'rgba(251,146,60,0.08)',  border: 'rgba(251,146,60,0.2)',  gradient: '#fb923c, #ea580c' },
+  'Logistics':         { text: '#facc15', bg: 'rgba(250,204,21,0.08)',  border: 'rgba(250,204,21,0.2)',  gradient: '#facc15, #ca8a04' },
+  'Delivery':          { text: '#a78bfa', bg: 'rgba(167,139,250,0.08)', border: 'rgba(167,139,250,0.2)', gradient: '#a78bfa, #7c3aed' },
+  'Social Media':      { text: '#f472b6', bg: 'rgba(244,114,182,0.08)', border: 'rgba(244,114,182,0.2)', gradient: '#f472b6, #db2777' },
+  'EdTech':            { text: '#67e8f9', bg: 'rgba(103,232,249,0.08)', border: 'rgba(103,232,249,0.2)', gradient: '#67e8f9, #0891b2' },
+  'Fintech':           { text: '#818cf8', bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.2)', gradient: '#818cf8, #6366f1' },
+};
+
+function dc(domain: string) {
+  return domainColors[domain] ?? { text: '#818cf8', bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.2)', gradient: '#818cf8, #67e8f9' };
+}
 ---
 
-<section id="projects" aria-labelledby="projects-heading" style="padding: 5rem 1.5rem; background: #0d0d0d;">
-  <div style="max-width: 1000px; margin: 0 auto;">
+<section id="projects" aria-labelledby="projects-heading" style="padding: 6rem 1.5rem; background: rgba(255,255,255,0.012);">
+  <div style="max-width: 1040px; margin: 0 auto;">
+
     <div class="reveal">
-      <p style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #818cf8; margin-bottom: 0.75rem;">Projects</p>
-      <h2 id="projects-heading" style="font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.75rem;">
+      <p class="section-eyebrow"><span>04</span> Projects</p>
+      <h2 id="projects-heading" style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin: 0 0 0.6rem; line-height: 1.1;">
         Key <span class="gradient-text">Portfolio</span>
       </h2>
-      <p style="color: #71717a; margin: 0 0 2.5rem; font-size: 0.9rem;">Production-grade applications delivered across multiple industry verticals.</p>
+      <p style="color: #52525b; font-size: 0.9rem; margin: 0 0 2.75rem;">Production-grade applications delivered across multiple industry verticals.</p>
     </div>
 
     <!-- Featured Projects -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem;" class="featured-grid">
-      {featured.map((p, i) => (
-        <article
-          class="reveal card-hover"
-          style={`
-            padding: 1.5rem; border-radius: 14px;
-            background: #111111; border: 1px solid #1e1e1e;
-            transition-delay: ${i * 0.08}s;
-          `}
-          aria-label={`Project: ${p.name}`}
-        >
-          <!-- Domain tag -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-            <span style="
-              font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
-              text-transform: uppercase; color: #67e8f9;
-              padding: 0.2rem 0.6rem; border-radius: 9999px;
-              border: 1px solid #67e8f930; background: #67e8f910;
-            ">{p.domain}</span>
-            <span style="font-size: 0.7rem; color: #3f3f46;">Featured</span>
-          </div>
+    <div class="featured-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); gap: 1.1rem; margin-bottom: 2.5rem;">
+      {featured.map((p, i) => {
+        const c = dc(p.domain);
+        return (
+          <article
+            class="reveal glass glass-hover"
+            style={`padding: 0; border-radius: 18px; overflow: hidden; transition-delay: ${i * 0.08}s;`}
+            aria-label={`Project: ${p.name}`}
+          >
+            <!-- Top gradient accent bar -->
+            <div style={`height: 2px; background: linear-gradient(90deg, ${c.gradient});`} aria-hidden="true"></div>
 
-          <h3 style="font-size: 1.1rem; font-weight: 700; color: #fafafa; margin: 0 0 0.5rem;">{p.name}</h3>
-          <p style="font-size: 0.85rem; color: #a1a1aa; line-height: 1.6; margin: 0 0 1rem;">{p.description}</p>
+            <div style="padding: 1.6rem;">
+              <!-- Domain + Featured -->
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <span style={`
+                  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+                  text-transform: uppercase;
+                  color: ${c.text}; padding: 0.22rem 0.65rem;
+                  border-radius: 9999px; border: 1px solid ${c.border};
+                  background: ${c.bg};
+                `}>{p.domain}</span>
+                <span style="font-size: 0.68rem; color: #3f3f46; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500;">Featured</span>
+              </div>
 
-          {p.highlights.length > 0 && (
-            <ul style="list-style: none; margin: 0 0 1rem; padding: 0;">
-              {p.highlights.map((h) => (
-                <li style="display: flex; gap: 0.5rem; margin-bottom: 0.4rem; align-items: flex-start;">
-                  <span style="color: #818cf8; flex-shrink: 0; font-size: 0.7rem; margin-top: 0.3rem;">▹</span>
-                  <span style="font-size: 0.8rem; color: #71717a; line-height: 1.5;">{h}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+              <h3 style="font-size: 1.15rem; font-weight: 700; color: #fafafa; margin: 0 0 0.6rem; letter-spacing: -0.02em;">{p.name}</h3>
+              <p style="font-size: 0.85rem; color: #71717a; line-height: 1.7; margin: 0 0 1rem;">{p.description}</p>
 
-          <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-            {p.tech.map((t) => (
-              <span class="tech-badge">{t}</span>
-            ))}
-          </div>
-        </article>
-      ))}
+              {p.highlights.length > 0 && (
+                <ul style="list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-direction: column; gap: 0.45rem;">
+                  {p.highlights.map((h) => (
+                    <li style="display: flex; gap: 0.55rem; align-items: flex-start;">
+                      <span style={`color: ${c.text}; flex-shrink: 0; font-size: 0.68rem; margin-top: 0.28rem;`} aria-hidden="true">▹</span>
+                      <span style="font-size: 0.8rem; color: #71717a; line-height: 1.6;">{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                {p.tech.map((t) => (
+                  <span class="tech-badge">{t}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        );
+      })}
     </div>
 
     <!-- Other Projects -->
-    <div class="reveal" style="transition-delay: 0.3s;">
-      <h3 style="font-size: 0.85rem; font-weight: 600; color: #71717a; margin: 0 0 1rem; text-transform: uppercase; letter-spacing: 0.08em;">Additional Projects</h3>
+    <div class="reveal" style="transition-delay: 0.28s;">
+      <h3 style="font-size: 0.72rem; font-weight: 700; color: #3f3f46; margin: 0 0 1rem; text-transform: uppercase; letter-spacing: 0.1em;">Additional Projects</h3>
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem;">
-        {others.map((p, i) => (
-          <div
-            class="card-hover"
-            style="
-              padding: 1rem; border-radius: 10px;
-              background: #111111; border: 1px solid #1a1a1a;
-            "
-            aria-label={`Project: ${p.name}`}
-          >
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.35rem;">
-              <h4 style="font-size: 0.88rem; font-weight: 600; color: #d4d4d4; margin: 0;">{p.name}</h4>
-              <span style="font-size: 0.65rem; color: #818cf8; flex-shrink: 0; margin-left: 0.5rem;">{p.domain}</span>
+        {others.map((p) => {
+          const c = dc(p.domain);
+          return (
+            <div
+              class="glass glass-hover"
+              style="padding: 1.1rem 1.2rem; border-radius: 12px;"
+              aria-label={`Project: ${p.name}`}
+            >
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.4rem;">
+                <h4 style="font-size: 0.88rem; font-weight: 600; color: #d4d4d8; margin: 0;">{p.name}</h4>
+                <span style={`font-size: 0.62rem; color: ${c.text}; flex-shrink: 0; margin-left: 0.5rem; font-weight: 600;`}>{p.domain}</span>
+              </div>
+              <p style="font-size: 0.78rem; color: #52525b; margin: 0 0 0.65rem; line-height: 1.55;">{p.description}</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+                {p.tech.map((t) => (
+                  <span style="font-size: 0.65rem; padding: 0.15rem 0.55rem; border-radius: 5px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); color: #52525b;">{t}</span>
+                ))}
+              </div>
             </div>
-            <p style="font-size: 0.78rem; color: #71717a; margin: 0 0 0.6rem; line-height: 1.5;">{p.description}</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
-              {p.tech.map((t) => (
-                <span style="font-size: 0.65rem; padding: 0.15rem 0.5rem; border-radius: 4px; background: #1a1a1a; border: 1px solid #262626; color: #71717a;">{t}</span>
-              ))}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </div>
@@ -95,7 +117,7 @@ const others = projects.filter((p) => !p.featured);
   @media (max-width: 640px) {
     .featured-grid { grid-template-columns: 1fr !important; }
   }
-  html.light #projects { background: #f9f9f9 !important; }
+  html.light #projects { background: rgba(0,0,0,0.02); }
   html.light #projects h2, html.light #projects h3, html.light #projects h4 { color: #111111 !important; }
-  html.light div[style*="background: #111111"] { background: #ffffff !important; border-color: #e0e0e0 !important; }
+  html.light .featured-grid article h3 { color: #111111 !important; }
 </style>
