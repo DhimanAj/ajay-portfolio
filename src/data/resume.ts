@@ -105,6 +105,8 @@ export interface Project {
   highlights: string[];
   tech: string[];
   featured: boolean;
+  playStoreUrl?: string;
+  appStoreUrl?: string;
 }
 
 export const projects: Project[] = [
@@ -118,6 +120,8 @@ export const projects: Project[] = [
     ],
     tech: ["Flutter", "Bloc", "GraphQL", "Socket.IO", "JWT"],
     featured: true,
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.magnifi.app",
+    appStoreUrl: "https://apps.apple.com/us/app/magnifi-invest-with-ai/id1574358920",
   },
   {
     name: "EarthLink",
@@ -129,6 +133,8 @@ export const projects: Project[] = [
     ],
     tech: ["Flutter", "GetX", "GraphQL", "REST APIs"],
     featured: true,
+    playStoreUrl: "https://play.google.com/store/apps/details?id=com.earthlink.app",
+    appStoreUrl: "https://apps.apple.com/in/app/earthlink/id6463245732",
   },
   {
     name: "Ph7 Doctor & User Suite",
@@ -139,6 +145,7 @@ export const projects: Project[] = [
     ],
     tech: ["Kotlin", "MVVM", "Jetpack", "Retrofit", "WebRTC"],
     featured: true,
+    playStoreUrl: "https://play.google.com/store/apps/details?id=app.ph7",
   },
   {
     name: "Mobile Petrol Station",
@@ -150,6 +157,8 @@ export const projects: Project[] = [
     ],
     tech: ["Flutter", "Bloc", "Google Maps", "Real-time"],
     featured: true,
+    playStoreUrl: "https://play.google.com/store/apps/developer?id=Mobile+Petrol+Station+%28MPS%29",
+    appStoreUrl: "https://apps.apple.com/in/app/mps-customer/id6754884502",
   },
   {
     name: "Courier-Market",
@@ -158,6 +167,8 @@ export const projects: Project[] = [
     highlights: [],
     tech: ["Flutter", "GetX", "Google Maps API"],
     featured: false,
+    playStoreUrl: "https://play.google.com/store/apps/details?id=test.appcourier",
+    appStoreUrl: "https://apps.apple.com/in/app/courier-market/id1339177381",
   },
   {
     name: "Ramatou Express",
@@ -166,6 +177,7 @@ export const projects: Project[] = [
     highlights: [],
     tech: ["Flutter", "GetX", "Google Maps"],
     featured: false,
+    playStoreUrl: "https://play.google.com/store/apps/details?id=app.ramatou.express",
   },
   {
     name: "Be You+",
@@ -190,6 +202,8 @@ export const projects: Project[] = [
     highlights: [],
     tech: ["Flutter"],
     featured: false,
+    playStoreUrl: "https://play.google.com/store/apps/details?id=app.real.english",
+    appStoreUrl: "https://apps.apple.com/in/app/real-english/id6444020789",
   },
   {
     name: "Crypto Mining & Spare Coin",
