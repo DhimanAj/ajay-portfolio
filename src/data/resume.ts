@@ -7,7 +7,7 @@ export const personal = {
   phone: "+91-8684838182",
   linkedin: "https://linkedin.com/in/ajay-dhiman-90075919a",
   github: "https://github.com/ajaydhiman221195",
-  location: "Mohali, India",
+  location: "Sonipat, India",
   availableForWork: true,
   initials: "AD",
 };
